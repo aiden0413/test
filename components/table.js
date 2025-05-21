@@ -1,20 +1,20 @@
 export default function Table(){
     const css="border-t-2 border-b-2 border-r-2 border-black p-1";
 
-    const heads=['','木','木','木','木'];
+    const heads=['','木1','木2','木3','木4'];
 
     const data=[
-    [['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)']],
-    [['傷官','(상관)'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官']],
-    [['傷官','(상관)'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官']],
-    [['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)']],
-    [['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)']],
-    [['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)']],
-    [['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)'],['傷官','(상관)','傷官','(상관)','傷官','(상관)']],
+    [['傷官','(상관1)'],['傷官','(상관2)'],['傷官','(상관3)'],['傷官','(상관4)'],['傷官','(상관5)']],
+    [['傷官','(상관1)'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官']],
+    [['傷官','(상관1)'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官'],['임','官','傷官']],
+    [['傷官','(상관1)'],['傷官','(상관2)'],['傷官','(상관3)'],['傷官','(상관4)'],['傷官','(상관5)']],
+    [['傷官','(상관1)'],['傷官','(상관2)'],['傷官','(상관3)'],['傷官','(상관4)'],['傷官','(상관5)']],
+    [['傷官','(상관1)'],['傷官','(상관2)'],['傷官','(상관3)'],['傷官','(상관4)'],['傷官','(상관5)']],
+    [['傷官','(상관1)'],['傷官','(상관2)'],['傷官','(상관3)'],['傷官','(상관4)'],['傷官','(상관5)','傷官','(상관6)','傷官','(상관7)']],
     ];
 
-    const color1=['black','red-500','black','black','cyan-500','red-500','black','white'];
-    const color2=['white','white','white','white','white','white','white','black'];
+    const color1=['bg-black','bg-red-500','bg-black','bg-black','bg-cyan-500','bg-red-500','bg-black','bg-white'];
+    const color2=['text-white','text-white','text-white','text-white','text-white','text-white','text-white','text-black'];
     let index=0;
 
     return (
@@ -27,27 +27,30 @@ export default function Table(){
             <table className="text-center table-auto text-black w-full">
                 <thead>
                     <tr>
-                        {heads.map((head)=>(
-                            <th className="border-r-2 border-black">{head}</th>
+                        {heads.map((head,i)=>(
+                            <th key={i} className="border-r-2 border-black">{head}</th>
                         ))}
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((row)=>(
-                        <tr>
-                            {row.map((value)=>{
+                    {data.map((row,idx1)=>(
+                        <tr key={`${idx1}`}>
+                            {row.map((value,idx2)=>{
                                 if(value.length==3){
+                                    const bgColor=color1[index];
+                                    const textColor=color2[index];
+                                    const borderColor= color1[index]==='bg-white' ? 'border border-black' : '';
+                                    index++;
+                                    console.log(bgColor,textColor,borderColor)
                                     return (
-                                        <td className={css}>
-                                            <div className={`bg-${color1[index]} rounded-2xl p-2 text-${color2[index]}
-                                                ${color1[index++]==='white' ? 'border border-black' : ''}
-                                            `}>
-                                                {value.map((text,i)=>{
-                                                    if(i===1){
-                                                        return <div className="text-[clamp(1px,6vw,20px)]">{text}</div>
+                                        <td key={`${idx1}-${idx2}`} className={css}>
+                                            <div className={`${bgColor} rounded-2xl p-2 ${textColor} ${borderColor}`}>
+                                                {value.map((text,idx3)=>{
+                                                    if(idx3===1){
+                                                        return <div key={`${idx1}-${idx2}-${idx3}`} className="text-[clamp(1px,6vw,20px)]">{text}</div>
                                                     }
                                                     else{
-                                                        return <div className="text-[clamp(1px,3vw,8px)]">{text}</div>
+                                                        return <div key={`${idx1}-${idx2}-${idx3}`} className="text-[clamp(1px,3vw,8px)]">{text}</div>
                                                     }
                                                 })}
                                             </div>
@@ -56,13 +59,13 @@ export default function Table(){
                                 }
                                 else{
                                     return (
-                                        <td className={css}>
-                                            {value.map((text,i)=>{
-                                                if(i%2===0){
-                                                    return <div className="text-[clamp(1px,4vw,15px)]">{text}</div>
+                                        <td key={`${idx1}-${idx2}`} className={css}>
+                                            {value.map((text,idx3)=>{
+                                                if(idx3%2===0){
+                                                    return <div key={`${idx1}-${idx2}-${idx3}`} className="text-[clamp(1px,4vw,15px)]">{text}</div>
                                                 }
                                                 else{
-                                                    return <div className="text-[clamp(1px,3vw,10px)]">{text}</div>
+                                                    return <div key={`${idx1}-${idx2}-${idx3}`} className="text-[clamp(1px,3vw,10px)]">{text}</div>
                                                 }
                                             })}
                                         </td>
